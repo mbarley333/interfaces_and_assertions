@@ -1,4 +1,4 @@
-# using interfaces and assertions
+# using interfaces and assertions in Go
 
 WARNING: this a write up on using interfaces and assertions.  The scenario below is covered a different way by official go code that
 was discovered upon closer review.  The main point is how to use interfaces and type assertions to solve a problem.
