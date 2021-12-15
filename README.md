@@ -1,11 +1,10 @@
 # using interfaces and assertions
 
 WARNING: this a write up on using interfaces and assertions.  The scenario below is covered a different way by official go code that
-was discovered upon closer review.  The main point is how to use interfaces and use type assertions to solve a problem.
+was discovered upon closer review.  The main point is how to use interfaces and type assertions to solve a problem.
 
-I encountered an issue trapping an context timeout error
+I encountered an issue trying to trap the following error
 
-Here is the error I saw: 
 ```bash
 context deadline exceeded (Client.Timeout exceeded while awaiting headers)
 ```
@@ -20,6 +19,8 @@ if errors.Is(err, context.DeadlineExceeded) {
 	log.Println("ContextDeadlineExceeded: true")
 }
 ```
+
+However, the context deadline exceeded error wasn't being caught by the logic above.  Hmmmmmmmm...
 
 
 
