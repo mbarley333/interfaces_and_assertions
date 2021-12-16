@@ -1,7 +1,6 @@
 # using interfaces and assertions in Go
 
-WARNING: this a write up on using interfaces and assertions.  The scenario below is covered a different way by official go code that
-was discovered upon closer review.  The main point is how to use interfaces and type assertions to solve a problem.
+WARNING: this an exercise on using interfaces and assertions.  The scenario below is covered a by official go code that was discovered after the fact.  The main point is how to use interfaces and type assertions to solve a problem.
 
 I encountered an issue trying to trap the following error
 
@@ -48,7 +47,7 @@ The print statment actually yields:
 &url.Error{Op:"Head", URL:"http://localhost:8080", Err:(*http.httpError)(0x14000094000)}2021/12/15 07:32:58 IsTimeoutError: true
 ```
 
-Interesting, nothing in the print that resembles a context error message like we are seeing so we must be on a different track.  Taking a quick look at the Do method in the http client library shows a comment that any error returned is of type \*url.Error which matches above.  If we walk through the Do method, we do see the returned error value matches the \*url.Error type.
+Taking a quick look at the Do method in the http client library shows a comment that any error returned is of type \*url.Error which matches above.  If we walk through the Do method, we do see the returned error value matches the \*url.Error type.
 
 ```bash
 func (c *Client) Do(req *Request) (*Response, error) {
@@ -114,7 +113,13 @@ func (e *Error) Timeout() bool {
 }
 ```
 
-It appears that the Timeout method might be something we want to use.  Now, we can start coming up with some logic.  We know that error is an interface, so if we can assert that an error is of type \*url.Error we can then use the Timeout method to check for a timeout.
+It appears that the Timeout method might be something we want to use.  Now, we can start coming up with some logic to try to trap the error
+
+1) error is an interface (https://pkg.go.dev/builtin#error)  
+2) url.Error implements the error interface by via the Error method (https://pkg.go.dev/net/url#Error)
+3) \*url.Error has the Timeout method to check for a timeout
+4) we should be able to perform a type assertion on the returned err value to see if we indeed have a \*url.Error
+5) if we do have a \*url.Error type, we can check the Timeout method to see if we are getting timeouts from the http client
 
 
 Code:
@@ -184,4 +189,9 @@ func (f Faketimeout) Error() string {
 }
 ```
 
+
+# conclusion
+This was a fun exercise using interfaces and assertions.  There was the error interface, \*url.Error type which implements the error interface and the Timeout method on \*url.Error.  I had never used this combination to sort out a problem and I learned a lot.
+
+Go actually has a similar implementation of the above exercise: os.IsTimeout().  Better, if we were to add a context in the request supplied to Do, we could trap the error that started this whole adventure.  https://go.dev/play/p/J5GPDfwBiAY
 
