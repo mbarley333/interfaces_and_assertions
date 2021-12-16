@@ -134,19 +134,6 @@ func IsTimeout(err error) bool {
 
 	return u.Timeout()
 }
-
-func IsTimeout(err error) bool {
-
-	var u *url.Error
-
-	// assert type for error interface
-	u, ok := err.(*url.Error)
-	if !ok {
-		return false
-	}
-
-	return u.Timeout()
-}
 ```
 
 
