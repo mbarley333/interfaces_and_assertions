@@ -193,5 +193,5 @@ func (f Faketimeout) Error() string {
 # conclusion
 This was a fun exercise using interfaces and assertions.  There was the error interface, \*url.Error type which implements the error interface and the Timeout method on \*url.Error.  I had never used this combination to sort out a problem and I learned a lot.
 
-Go actually has a similar implementation of the above exercise: os.IsTimeout().  Better, if we were to add a context in the request supplied to Do, we could trap the error that started this whole adventure.  https://go.dev/play/p/J5GPDfwBiAY
+Go actually has a similar implementation of the above exercise: os.IsTimeout().  Better, if we were to add a context to the request supplied to Do, we could trap the error that started this whole adventure.  https://go.dev/play/p/J5GPDfwBiAY
 
