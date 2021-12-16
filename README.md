@@ -116,7 +116,7 @@ func (e *Error) Timeout() bool {
 It appears that the Timeout method might be something we want to use.  Now, we can start coming up with some logic to try to trap the error
 
 1) error is an interface (https://pkg.go.dev/builtin#error)  
-2) url.Error implements the error interface by via the Error method (https://pkg.go.dev/net/url#Error)
+2) url.Error implements the error interface via the Error method (https://pkg.go.dev/net/url#Error)
 3) \*url.Error has the Timeout method to check for a timeout
 4) we should be able to perform a type assertion on the returned err value to see if we indeed have a \*url.Error
 5) if we do have a \*url.Error type, we can check the Timeout method to see if we are getting timeouts from the http client
