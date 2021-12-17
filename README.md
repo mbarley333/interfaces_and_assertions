@@ -195,3 +195,5 @@ This was a fun exercise using interfaces and assertions.  There was the error in
 
 Go actually has a similar implementation of the above exercise: os.IsTimeout().  Better, if we were to add a context to the request supplied to Do, we could trap the error that started this whole adventure.  https://go.dev/play/p/J5GPDfwBiAY
 
+Later, I swapped out the custom error trapping code for os.Timeout and got the same results.  So, either solution is viable for this problem.
+
