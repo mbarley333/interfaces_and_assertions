@@ -1,6 +1,6 @@
 # using interfaces and assertions in Go
 
-WARNING: this an exercise about using interfaces and assertions.  The scenario below is covered a by official go code that was discovered after the fact.  The main point is how to use interfaces and type assertions to solve a problem.
+WARNING: this an exercise about using interfaces and assertions.  The scenario below is covered by official go code that was discovered after the fact.  The main point is how to use interfaces and type assertions to solve a problem.
 
 I encountered an issue trying to trap the following error
 
